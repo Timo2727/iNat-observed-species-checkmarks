@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "iNat Observed Species Checkmarks",
+  "version": "1.0",
+  "description": "Within the explore page's species tab, this extension highlights all species that you have seen before.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://www.inaturalist.org/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.inaturalist.org/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "options.html"
+  },
+  "options_page": "options.html"
+}
