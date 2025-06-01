@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>iNat Checkmarks Settings</title>
+  <style>
+    body { font-family: sans-serif; padding: 1em; max-width: 400px; }
+    label { display: block; margin-top: 1em; }
+    input { width: 100%; padding: 0.4em; }
+    button { margin-top: 1em; padding: 0.5em; }
+  </style>
+</head>
+<body>
+  <h2>iNat Checkmarks Options</h2>
+  <label>
+    iNaturalist Username:
+    <input type="text" id="username" />
+  </label>
+  <label>
+    Seen species color:
+    <input type="color" id="greenColor" />
+  </label>
+  <label>
+    Unseen species color:
+    <input type="color" id="pinkColor" />
+  </label>
+  <button id="save">Save</button>
+  <p id="status"></p>
+  <script src="options.js"></script>
+</body>
+</html>
