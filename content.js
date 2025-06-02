@@ -16,25 +16,31 @@ console.log("[iNat Checkmarks] Script loaded");
 const seenTaxa = new Set();
 
 async function fetchSeenTaxa(username) {
-  console.log(`[iNat Checkmarks] Fetching observations for ${username}...`);
+  console.log(`[iNat Checkmarks] Fetching life list taxa for ${username}...`);
   let page = 1;
   let more = true;
 
   while (more) {
-    const res = await fetch(`https://api.inaturalist.org/v1/observations?user_login=${username}&per_page=200&page=${page}`);
+    const url = `https://api.inaturalist.org/v1/life_list_taxa?user_id=${username}&per_page=200&page=${page}`;
+    const res = await fetch(url);
     const data = await res.json();
-    data.results.forEach(obs => {
-      if (obs.taxon && obs.taxon.id) {
-        seenTaxa.add(obs.taxon.id);
-      }
-    });
-    more = data.results.length === 200;
+
+    if (data.results && data.results.length > 0) {
+      data.results.forEach(entry => {
+        if (entry.taxon && entry.taxon.id) {
+          seenTaxa.add(entry.taxon.id);
+        }
+      });
+    }
+
+    more = data.results && data.results.length === 200;
     page++;
   }
 
-  console.log(`[iNat Checkmarks] Loaded ${seenTaxa.size} observed taxon IDs`);
+  console.log(`[iNat Checkmarks] Loaded ${seenTaxa.size} life list taxa`);
   addCheckmarks();
 }
+
 
 function extractTaxonId(card) {
   const href = card.querySelector('a.photo')?.getAttribute('href') || '';
